@@ -1,0 +1,42 @@
+{# REQUIRED SCRIPTS #}
+
+{#TESTS#}
+ <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.1.1/jquery.min.js" charset="utf-8"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-mousewheel/3.1.13/jquery.mousewheel.min.js"
+            charset="utf-8"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/raphael/2.2.7/raphael.min.js" charset="utf-8"></script>
+
+{# jQuery #}
+<script src="{{ url_for('static', filename="plugins/jquery/jquery.min.js") }}"></script>
+{# Bootstrap #}
+<script src="{{ url_for('static', filename="plugins/bootstrap/js/bootstrap.bundle.min.js") }}"></script>
+{# overlayScrollbars #}
+<script src="{{ url_for('static', filename="plugins/overlayScrollbars/js/jquery.overlayScrollbars.min.js") }}"></script>
+{# AdminLTE App #}
+<script src="{{ url_for('static', filename="dist/js/adminlte.js") }}"></script>
+
+{# PAGE PLUGINS #}
+{# jQuery Mapael #}
+<script src="{{ url_for('static', filename="plugins/jquery-mousewheel/jquery.mousewheel.js") }}"></script>
+<script src="{{ url_for('static', filename="plugins/raphael/raphael.min.js") }}"></script>
+<script src="{{ url_for('static', filename="plugins/jquery-mapael/jquery.mapael.js") }}"></script>
+<script src="{{ url_for('static', filename="plugins/jquery-mapael/maps/ukraine.js") }}"></script>
+{# ChartJS #}
+<script src="{{ url_for('static', filename="plugins/chart.js/Chart.min.js") }}"></script>
+
+{# map scripts#}
+<script src="https://unpkg.com/leaflet@1.9.3/dist/leaflet.js"
+     integrity="sha256-WBkoXOwTeyKclOHuWtc+i2uENFpDZ9YPdf5Hf+D7ewM="
+     crossorigin=""></script>
+<script src="{{ url_for('static', filename='public/js/map.js') }}"></script>
+
+{# Socket IO script#}
+<script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/4.6.1/socket.io.js"
+            integrity="sha512-xbQU0+iHqhVt7VIXi6vBJKPh3IQBF5B84sSHdjKiSccyX/1ZI7Vnkt2/8y8uruj63/DVmCxfUNohPNruthTEQA=="
+            crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+
+{# app scripts #}
+<script src="{{ url_for('static', filename='public/js/ukrain.js') }}"></script>
+{#<script src="{{ url_for('static', filename='public/js/app.js') }}"></script>#}
+{#<script src="{{ url_for('static', filename='public/js/drone_api.js') }}"></script>#}
+{#<script src="{{ url_for('static', filename='public/js/drone_socketio.js') }}"></script>#}

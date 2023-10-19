@@ -1,0 +1,112 @@
+{% extends 'layout/app.html' %}
+{% block content %}
+    <div>
+        <!-- Main content -->
+        <section class="content">
+            <div class="container-fluid">
+                <!-- Main row -->
+                <div class="row">
+                    <!-- Left col -->
+                    <div class="col-md-9">
+                        <!-- MAP & BOX PANE -->
+                        <div class="card h-100">
+                            <div class="card-header">
+                                <h3 class="card-title">Мапа надзвичайних подій</h3>
+                            </div>
+                            <!-- /.card-header -->
+                            <div class="card-body p-0">
+                                <div class="d-md-flex">
+                                    <div class="p-1 flex-fill" style="overflow: hidden">
+                                        <!-- Map will be created here -->
+                                        <div class="mapcontainer mapael">
+                                            <div class="map">
+
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div><!-- /.d-md-flex -->
+                            </div>
+                            <!-- /.card-body -->
+                        </div>
+                    </div>
+                    <div class="col-md-3">
+                        <div class="card card-default {% if not isAdmin %}h-100 {% else %} h-50 {% endif %}">
+                            <div class="card-header" id="area_events_header">
+                                <h3 class="card-title">
+                                    <i class="fas fa-bullhorn"></i>
+                                    Список подій
+                                </h3>
+                            </div>
+
+                            <div class="card-body media-body overflow-auto" id="area_events">
+
+                            </div>
+                        </div>
+
+                        {% if isAdmin %}
+                            <div class="card card-default">
+                                <div class="card-header" id="area_events_header">
+                                    <h3 class="card-title">
+                                        <i class="fas fa-bullhorn"></i>
+                                        Додати подію
+                                    </h3>
+                                </div>
+
+                                <form action="add_event" method="post">
+                                    <div class="card-body">
+                                        <div class="form-group">
+                                            <label for="exampleInputEmail1">Заголовок</label>
+                                            <input type="text" class="form-control" name="title"
+                                                   placeholder="Заголовок">
+                                        </div>
+                                        <div class="form-group">
+                                            <label>Опис</label>
+                                            <textarea class="form-control" rows="3" placeholder="Введіть опис ..." name="description"></textarea>
+                                        </div>
+                                    </div>
+                                    <input type="hidden" value="1" name="city_name" id="city_name">
+
+                                    <div class="card-footer">
+                                        <button type="submit" class="btn btn-primary">Submit</button>
+                                    </div>
+                                </form>
+                            </div>
+                        {% endif %}
+                    </div>
+                    <!-- /.col -->
+                </div>
+                <!-- /.row -->
+                <script>
+                    let test = [
+                        {% for city in cities %}
+                            {
+                                'id': '{{ city.name }}',
+                                'name': '{{ city.ua_name }}',
+                                'events': [
+                                    {% for event in city.events %}
+                                        {
+                                            'id': '{{ event.id }}',
+                                            'title': '{{ event.title }}',
+                                            'description': '{{ event.description }}'
+                                        },
+                                    {% endfor %}
+                                ],
+                            },
+                        {% endfor %}
+                    ];
+
+                    set_regions(test)
+
+                    console.log(test)
+                </script>
+            </div><!--/. container-fluid -->
+        </section>
+        <!-- /.content -->
+    </div>
+    <!-- /.content-wrapper -->
+
+    <!-- Control Sidebar -->
+    <aside class="control-sidebar control-sidebar-dark">
+        <!-- Control sidebar content goes here -->
+    </aside>
+{% endblock %}

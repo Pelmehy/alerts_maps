@@ -1,0 +1,30 @@
+.map {
+    min-height: 285px !important;
+}
+
+.progress-warning {
+    background-color: #ffc107 !important;
+}
+
+.progress-success {
+    background-color: #28a745 !important;
+    transition: none !important;
+}
+
+.sticky {
+    position: -webkit-sticky;
+    position: fixed;
+    width: 27%;
+}
+
+.progress {
+    border-radius: 0;
+}
+
+.decrease {
+    justify-content: end;
+}
+
+.video {
+    height: 300px;
+}

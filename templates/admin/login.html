@@ -1,0 +1,41 @@
+{% extends 'layout/login.html' %}
+{% block content %}
+    <div class="card card-outline card-primary">
+        <div class="card-header text-center">
+            <a href="/" class="h1"><b>Адмін Панель</b></a>
+        </div>
+        <div class="card-body">
+            <form action="admin" method="post">
+                {% if error %}
+                    <span style="display: block !important;" class="error invalid-feedback">{{ error }}</span>
+                {% endif %}
+                <div class="input-group mb-3">
+                    <input type="email" name="email" id="email" class="form-control {% if error %} is-invalid {% endif %}" placeholder="Email">
+                    <div class="input-group-append">
+                        <div class="input-group-text">
+                            <span class="fas fa-envelope"></span>
+                        </div>
+                    </div>
+                </div>
+                <div class="input-group mb-3">
+                    <input type="password" name="password" id="password" class="form-control {% if error %} is-invalid {% endif %}" placeholder="Password">
+                    <div class="input-group-append">
+                        <div class="input-group-text">
+                            <span class="fas fa-lock"></span>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-8">
+                    </div>
+
+                    <div class="col-4">
+                        <button type="submit" class="btn btn-primary btn-block">Увійти</button>
+                    </div>
+
+                </div>
+            </form>
+        </div>
+
+    </div>
+{% endblock %}

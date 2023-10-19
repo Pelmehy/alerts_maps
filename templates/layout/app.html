@@ -1,0 +1,13 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    {% include 'layout/head.html' %}
+</head>
+<body class="hold-transition dark-mode sidebar-mini layout-fixed layout-navbar-fixed sidebar-collapse">
+    <div class="wrapper">
+        {% include 'include/scripts.html' %}
+
+        {% block content %}{% endblock %}
+    </div>
+</body>
+</html>

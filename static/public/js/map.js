@@ -10,6 +10,7 @@ class Alert_map {
     osm;
     ukraine_geojson;
 
+    isAdmin = false;
     cities = {};
     emergencies = {};
     emergency_types = {}
@@ -21,12 +22,14 @@ class Alert_map {
         cities,
         emergencies,
         emergency_types,
-        geo_url = ''
+        geo_url = '',
+        isAdmin = false
     ) {
         this.cities = cities;
         this.emergencies = emergencies;
         this.emergency_types = emergency_types;
-        this.geo_url = geo_url
+        this.geo_url = geo_url;
+        this.isAdmin = isAdmin;
     }
 
     init() {
@@ -142,10 +145,12 @@ class Alert_map {
                     <h5>Опис:</h5>
                     <p>${emergency.description}</p>
                 </div>
-                
-                <a type="button" href="delete_event/${emergency_id}" class="btn btn-block btn-danger">Видалити</a>
-            </div>
             `
+        if (this.isAdmin) {
+            alert_cards += `<a type="button" href="delete_event/${emergency_id}" class="btn btn-block btn-danger">Видалити</a>`
+        }
+
+        alert_cards += `</div>`
         // region.events.forEach(region_event => {
         //     alert_cards += `
         //     <div class="callout callout-danger">

@@ -149,7 +149,10 @@
                             ua_cities,
                             emergencies,
                             emergency_types,
-                            '{{ url_for('static', filename='public/js/ukraine-with-regions_1530.geojson') }}'
+                            '{{ url_for('static', filename='public/js/ukraine-with-regions_1530.geojson') }}',
+                            {% if isAdmin %}
+                            true
+                            {% endif %}
                         );
                         alert_map.init();
                         {#alert_map.add_markers();#}

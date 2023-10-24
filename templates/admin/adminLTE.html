@@ -1,5 +1,7 @@
 {% extends 'layout/app.html' %}
 {% block content %}
+<link rel="stylesheet" href="{{ url_for('static', filename='plugins/select2/css/select2.css') }}">
+
     <div>
         <!-- Main content -->
         <section class="content">
@@ -7,7 +9,7 @@
                 <!-- Main row -->
                 <div class="row">
                     <!-- Left col -->
-                    <div class="col-md-9">
+                    <div class="col-md-8">
                         <!-- MAP & BOX PANE -->
                         <div class="card h-100">
                             <div class="card-header">
@@ -19,7 +21,7 @@
                                     <div class="p-1 flex-fill" style="overflow: hidden">
                                         <!-- Map will be created here -->
                                         <div class="mapcontainer mapael">
-                                            <div class="map">
+                                            <div class="map" id="freeMap">
 
                                             </div>
                                         </div>
@@ -29,7 +31,7 @@
                             <!-- /.card-body -->
                         </div>
                     </div>
-                    <div class="col-md-3">
+                    <div class="col-md-4">
                         <div class="card card-default {% if not isAdmin %}h-100 {% else %} h-50 {% endif %}">
                             <div class="card-header" id="area_events_header">
                                 <h3 class="card-title">
@@ -59,6 +61,35 @@
                                             <input type="text" class="form-control" name="title"
                                                    placeholder="Заголовок">
                                         </div>
+
+                                        <div class="row">
+                                            <div class="col-6">
+                                                <div class="form-group">
+                                                    <label>Місто</label>
+                                                    <select name="city" id="city" class="select2" multiple="multiple" data-placeholder="Оберіть місто" style="width: 100%;">
+                                                        {% for city in ua_cities %}
+                                                            <option value="{{ city.id }}">{{ city.ua_name }}</option>
+                                                        {% endfor %}
+                                                    </select>
+                                                </div>
+                                            </div>
+                                            <div class="col-6">
+                                                <div class="form-group">
+                                                    <label>Класифікація події</label>
+                                                    <select name="emergency_type" id="emergency_type" class="select2" multiple="multiple" data-placeholder="Оберіть тип події" style="width: 100%;">
+                                                        <option value="1">велика</option>
+                                                        <option value="2">маленька</option>
+                                                    </select>
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                        <div class="form-group">
+                                            <label for="exampleInputEmail1">Радіус впливу</label>
+                                            <input type="text" class="form-control" name="radius"
+                                                   placeholder="Заголовок">
+                                        </div>
+
                                         <div class="form-group">
                                             <label>Опис</label>
                                             <textarea class="form-control" rows="3" placeholder="Введіть опис ..." name="description"></textarea>
@@ -77,27 +108,66 @@
                 </div>
                 <!-- /.row -->
                 <script>
-                    let test = [
-                        {% for city in cities %}
-                            {
-                                'id': '{{ city.name }}',
-                                'name': '{{ city.ua_name }}',
-                                'events': [
-                                    {% for event in city.events %}
-                                        {
-                                            'id': '{{ event.id }}',
-                                            'title': '{{ event.title }}',
-                                            'description': '{{ event.description }}'
-                                        },
-                                    {% endfor %}
-                                ],
+                    let ua_cities = {
+                        {% for city in ua_cities %}
+                            '{{ city.id }}': {
+                            'name': '{{ city.city }}',
+                            'lat': {{ city.lat }},
+                            'lng': {{ city.lng }},
+                        },
+                        {% endfor %}
+                    };
+                    let emergencies = {
+                        {% for emergency in emergencies %}
+                            '{{ emergency.id }}': {
+                                'title': '{{ emergency.title }}',
+                                'description': '{{ emergency.description }}',
+                                'radius': '{{ emergency.radius }}',
+                                'impact': '{{ emergency.impact }}',
+                                'emergency_type': '{{ emergency.emergency_type }}',
+                                'city_id': '{{ emergency.city_id }}',
                             },
                         {% endfor %}
-                    ];
+                        '1': {
+                            'title': 'a',
+                            'description': 'test 1',
+                            'radius': '50000',
+                            'impact': 'a',
+                            'emergency_type': '1',
+                            'city_id': '1',
+                        },
+                        '2': {
+                            'title': 'test 2',
+                            'description': 'a',
+                            'radius': '50000',
+                            'impact': 'a',
+                            'emergency_type': '1',
+                            'city_id': '2',
+                        }
+                    };
 
-                    set_regions(test)
+                    emergency_types = {
+                        '1': {
+                            'name': 'велике забруднення'
+                        }
+                    }
 
-                    console.log(test)
+                    $(function () {
+                        $('.select2').select2()
+                        $('.select2bs4').select2({
+                            theme: 'bootstrap4'
+                        })
+
+                        let alert_map = new Alert_map(
+                            ua_cities,
+                            emergencies,
+                            emergency_types,
+                            '{{ url_for('static', filename='public/js/ukraine-with-regions_1530.geojson') }}'
+                        );
+                        alert_map.init();
+                        {#alert_map.add_markers();#}
+                        alert_map.add_emergencies()
+                    })
                 </script>
             </div><!--/. container-fluid -->
         </section>

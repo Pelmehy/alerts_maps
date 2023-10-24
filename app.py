@@ -3,9 +3,6 @@ from datetime import timedelta, datetime
 from flask_sqlalchemy import SQLAlchemy
 import click
 
-import sys
-
-# TODO delete if not used
 from flask_bcrypt import Bcrypt
 from flask_migrate import Migrate
 
@@ -21,10 +18,11 @@ db = SQLAlchemy(app)
 migrate = Migrate(app, db)
 bcrypt = Bcrypt(app)
 
-from models.cities import Cities
+from models.regions import Regions
 from models.admins import Admins
 from models.events import Events
 from models.auth_model import Auth
+from models.ua import UA
 
 from controllers.map_controller import get_events
 
@@ -43,7 +41,8 @@ def admin():
     return render_template(
         'admin/adminLTE.html',
         isAdmin=session['is_admin'],
-        cities=cities
+        cities=cities,
+        ua_cities=UA.get()
     )
 
 @app.route('/admin', methods=['POST', 'GET'])
@@ -75,7 +74,7 @@ def add_event():
         return redirect('/')
 
     city_name = request.form['city_name']
-    city = Cities.get_by_name(city_name)
+    city = Regions.get_by_name(city_name)
 
     event = Events(
         title=request.form['title'],

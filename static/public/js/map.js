@@ -1,645 +1,161 @@
-// let regions = [
-//     {
-//         'id': "Zhytomyr",
-//         'name': 'Житомирська',
-//         'events': [
-//             {
-//                 'id': 'id',
-//                 'title': 'title',
-//                 'description': 'description'
-//             },
-//         ],
-//     },
-//     {
-//         'id': "Zaporizhia",
-//         'name': 'Запорізька',
-//         'events': [
-//             {
-//                 'id': 'id',
-//                 'title': 'title',
-//                 'description': 'description'
-//             },
-//         ],
-//     },
-//     {
-//         'id': "Zakarpattia",
-//         'name': 'Закарпатська',
-//         'events': [
-//             {
-//                 'id': 'id',
-//                 'title': 'title',
-//                 'description': 'description'
-//             },
-//         ],
-//     },
-//     {
-//         'id': "Volyn",
-//         'name': 'Волинська',
-//         'events': [
-//             {
-//                 'id': 'id',
-//                 'title': 'title',
-//                 'description': 'description'
-//             },
-//         ],
-//     },
-//     {
-//         'id': "Vinnytsia",
-//         'name': 'Вінницька',
-//         'events': [
-//             {
-//                 'id': 'id',
-//                 'title': 'title',
-//                 'description': 'description'
-//             },
-//         ],
-//     },
-//     {
-//         'id': "IvanoFrankivsk",
-//         'name': 'Івано-Франківська',
-//         'events': [
-//             {
-//                 'id': 'id',
-//                 'title': 'title',
-//                 'description': 'description'
-//             },
-//         ],
-//     },
-//     {
-//         'id': "Sumy",
-//         'name': 'Сумська',
-//         'events': [
-//             {
-//                 'id': 'id',
-//                 'title': 'title',
-//                 'description': 'description'
-//             },
-//         ],
-//     },
-//     {
-//         'id': "Sevastopol",
-//         'name': 'АР Крим',
-//         'events': [
-//             {
-//                 'id': 'id',
-//                 'title': 'title',
-//                 'description': 'description'
-//             },
-//         ],
-//     },
-//     {
-//         'id': "Rivne",
-//         'name': 'Рівненська',
-//         'events': [
-//             {
-//                 'id': 'id',
-//                 'title': 'title',
-//                 'description': 'description'
-//             },
-//         ],
-//     },
-//     {
-//         'id': "Ternopil",
-//         'name': 'Тернопільська',
-//         'events': [
-//             {
-//                 'id': 'id',
-//                 'title': 'title',
-//                 'description': 'description'
-//             },
-//         ],
-//     },
-//     {
-//         'id': "Poltava",
-//         'name': 'Полтавська',
-//         'events': [
-//             {
-//                 'id': 'id',
-//                 'title': 'title',
-//                 'description': 'description'
-//             },
-//         ],
-//     },
-//     {
-//         'id': "Odessa",
-//         'name': 'Одеська',
-//         'events': [
-//             {
-//                 'id': 'id',
-//                 'title': 'title',
-//                 'description': 'description'
-//             },
-//         ],
-//     },
-//     {
-//         'id': "Mykolaiv",
-//         'name': 'Миколаївська',
-//         'events': [
-//             {
-//                 'id': 'id',
-//                 'title': 'title',
-//                 'description': 'description'
-//             },
-//         ],
-//     },
-//     {
-//         'id': "Lviv",
-//         'name': 'Львівська',
-//         'events': [
-//             {
-//                 'id': 'id',
-//                 'title': 'title',
-//                 'description': 'description'
-//             },
-//         ],
-//     },
-//     {
-//         'id': "Luhansk",
-//         'name': 'Луганська',
-//         'events': [
-//             {
-//                 'id': 'id',
-//                 'title': 'title',
-//                 'description': 'description'
-//             },
-//         ],
-//     },
-//     {
-//         'id': "Kirovohrad",
-//         'name': 'Кіровоградська',
-//         'events': [
-//             {
-//                 'id': 'id',
-//                 'title': 'title',
-//                 'description': 'description'
-//             },
-//         ],
-//     },
-//     {
-//         'id': "Kiev",
-//         'name': 'Київська',
-//         'events': [
-//             {
-//                 'id': 'id',
-//                 'title': 'title',
-//                 'description': 'description'
-//             },
-//         ],
-//     },
-//     {
-//         'id': "KievCity",
-//         'name': 'Київ',
-//         'events': [
-//             {
-//                 'id': 'id',
-//                 'title': 'title',
-//                 'description': 'description'
-//             },
-//         ],
-//     },
-//     {
-//         'id': "Khmelnytskyi",
-//         'name': 'Хмельницька',
-//         'events': [
-//             {
-//                 'id': 'id',
-//                 'title': 'title',
-//                 'description': 'description'
-//             },
-//         ],
-//     },
-//     {
-//         'id': "Kherson",
-//         'name': 'Херсонська',
-//         'events': [
-//             {
-//                 'id': 'id',
-//                 'title': 'title',
-//                 'description': 'description'
-//             },
-//         ],
-//     },
-//     {
-//         'id': "Kharkiv",
-//         'name': 'Харківська',
-//         'events': [
-//             {
-//                 'id': 'id',
-//                 'title': 'title',
-//                 'description': 'description'
-//             },
-//         ],
-//     },
-//     {
-//         'id': "Donetsk",
-//         'name': 'Донецька',
-//         'events': [
-//             {
-//                 'id': 'id',
-//                 'title': 'title',
-//                 'description': 'description'
-//             },
-//         ],
-//     },
-//     {
-//         'id': "Dnipropetrovsk",
-//         'name': 'Дніпропетровська',
-//         'events': [
-//             {
-//                 'id': 'id',
-//                 'title': 'title',
-//                 'description': 'description'
-//             },
-//         ],
-//     },
-//     {
-//         'id': "Chernivtsi",
-//         'name': 'Чернівецька',
-//         'events': [
-//             {
-//                 'id': 'id',
-//                 'title': 'title',
-//                 'description': 'description'
-//             },
-//         ],
-//     },
-//     {
-//         'id': "Chernihiv",
-//         'name': 'Чернігівська',
-//         'events': [
-//             {
-//                 'id': 'id',
-//                 'title': 'title',
-//                 'description': 'description'
-//             },
-//              {
-//                 'id': 'id',
-//                 'title': 'title',
-//                 'description': 'description'
-//             },
-//         ],
-//     },
-//     {
-//         'id': "Cherkasy",
-//         'name': 'Черкаська',
-//         'events': [
-//             {
-//                 'id': 'id',
-//                 'title': 'title',
-//                 'description': 'description'
-//             },
-//         ],
-//     },
-//     {
-//         'id': "Crimea",
-//         'name': 'АР Крим',
-//         'events': [],
-//     },
-// ];
-let regions = [
-    {
-        'id': "Zhytomyr",
-        'name': 'Житомирська',
-        'events': [
-            
-        ],
-    },
-    {
-        'id': "Zaporizhia",
-        'name': 'Запорізька',
-        'events': [
-            {
-                'id': 'id',
-                'title': 'title',
-                'description': 'description'
-            },
-        ],
-    },
-    {
-        'id': "Zakarpattia",
-        'name': 'Закарпатська',
-        'events': [
-            
-        ],
-    },
-    {
-        'id': "Volyn",
-        'name': 'Волинська',
-        'events': [
-            
-        ],
-    },
-    {
-        'id': "Vinnytsia",
-        'name': 'Вінницька',
-        'events': [
-            {
-                'id': 'id',
-                'title': 'title',
-                'description': 'description'
-            },
-        ],
-    },
-    {
-        'id': "IvanoFrankivsk",
-        'name': 'Івано-Франківська',
-        'events': [
-            
-        ],
-    },
-    {
-        'id': "Sumy",
-        'name': 'Сумська',
-        'events': [
-            
-        ],
-    },
-    {
-        'id': "Sevastopol",
-        'name': 'АР Крим',
-        'events': [
-            {
-                'id': 'id',
-                'title': 'title',
-                'description': 'description'
-            },
-        ],
-    },
-    {
-        'id': "Rivne",
-        'name': 'Рівненська',
-        'events': [
-            
-        ],
-    },
-    {
-        'id': "Ternopil",
-        'name': 'Тернопільська',
-        'events': [
-            
-        ],
-    },
-    {
-        'id': "Poltava",
-        'name': 'Полтавська',
-        'events': [
-            
-        ],
-    },
-    {
-        'id': "Odessa",
-        'name': 'Одеська',
-        'events': [
-            
-        ],
-    },
-    {
-        'id': "Mykolaiv",
-        'name': 'Миколаївська',
-        'events': [
-            
-        ],
-    },
-    {
-        'id': "Lviv",
-        'name': 'Львівська',
-        'events': [
-            {
-                'id': 'id',
-                'title': 'title',
-                'description': 'description'
-            },
-        ],
-    },
-    {
-        'id': "Luhansk",
-        'name': 'Луганська',
-        'events': [
-            
-        ],
-    },
-    {
-        'id': "Kirovohrad",
-        'name': 'Кіровоградська',
-        'events': [
-            
-        ],
-    },
-    {
-        'id': "Kiev",
-        'name': 'Київська',
-        'events': [
-            
-        ],
-    },
-    {
-        'id': "KievCity",
-        'name': 'Київ',
-        'events': [
-            
-        ],
-    },
-    {
-        'id': "Khmelnytskyi",
-        'name': 'Хмельницька',
-        'events': [
-            
-        ],
-    },
-    {
-        'id': "Kherson",
-        'name': 'Херсонська',
-        'events': [
-            
-        ],
-    },
-    {
-        'id': "Kharkiv",
-        'name': 'Харківська',
-        'events': [
-            
-        ],
-    },
-    {
-        'id': "Donetsk",
-        'name': 'Донецька',
-        'events': [
-            
-        ],
-    },
-    {
-        'id': "Dnipropetrovsk",
-        'name': 'Дніпропетровська',
-        'events': [
-            
-        ],
-    },
-    {
-        'id': "Chernivtsi",
-        'name': 'Чернівецька',
-        'events': [
-            
-        ],
-    },
-    {
-        'id': "Chernihiv",
-        'name': 'Чернігівська',
-        'events': [
-            
-             
-        ],
-    },
-    {
-        'id': "Cherkasy",
-        'name': 'Черкаська',
-        'events': [
-            
-        ],
-    },
-    {
-        'id': "Crimea",
-        'name': 'АР Крим',
-        'events': [],
-    },
-];
+class Alert_map {
+    lat = 48.3358856;
+    lng = 31.1788196;
+    lat_lng = [this.lat, this.lng]
+    z = 6.4;
 
-function set_regions(new_regions) {
-    regions = new_regions;
-}
+    geo_url = ''
 
+    map;
+    osm;
+    ukraine_geojson;
 
-let areas_attrs = {};
+    cities = {};
+    emergencies = {};
+    emergency_types = {}
 
-function prepare_areas(regions) {
-    Object.values(regions).forEach(region => {
-        let area_attrs = {}
+    markers = [];
+    circles = [];
 
-        let area_info = {
-            text: {content: region.name, attrs: {'font-size': 6, 'fill': '#ffffff'}},
-            attrs: area_attrs,
-        }
-
-        if (region.id === 'Kiev') {
-            area_info.text.attrs['transform']  = 't0,15';
-        }
-
-        if (region.events.length > 0) {
-            area_info['attrs']['fill'] = '#8f0d11';
-            area_info['tooltip'] = prepare_popups(region);
-        } else {
-             area_info['attrs']['fill'] = '#343434';
-        }
-
-        areas_attrs[region.id] = area_info
-    });
-
-    return areas_attrs;
-}
-
-function prepare_popups(region) {
-    return {
-            content: "<span style=\"font-weight:bold;\">Область:</span>" + region.name + "<br>" +
-                "<span style=\"font-weight:bold;\">Кількість ЧС:</span>" + region.events.length
-        };
-}
-
-function select_area(id, mapElem, region) {
-    areas_attrs = prepare_areas(regions)
-
-    if (mapElem.originalAttrs.fill === "#246134") {
-        let fill_color = region.events.length > 0
-        ? '#8f0d11'
-        : '#343434';
-
-        areas_attrs[id].attrs.fill = fill_color;
-    } else {
-        areas_attrs[id].attrs.fill = '#246134';
+    constructor(
+        cities,
+        emergencies,
+        emergency_types,
+        geo_url = ''
+    ) {
+        this.cities = cities;
+        this.emergencies = emergencies;
+        this.emergency_types = emergency_types;
+        this.geo_url = geo_url
     }
 
-    $(".mapcontainer").trigger('update', [{mapOptions: {areas: areas_attrs}}]);
-}
+    init() {
+        this.map = L.map('freeMap').setView(
+            this.lat_lng,
+            this.z
+        );
+        this.osm = L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+            attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
+        });
+        this.osm.addTo(this.map);
 
-function display_area_events(region) {
-    let area_events = $('#area_events');
-    area_events.html('');
+        if (this.geo_url) {
+            this.ukraine_geojson = new L.geoJson();
+            this.ukraine_geojson.addTo(this.map);
 
-    $('#area_events_header').html(`
-    <h3 class="card-title">
-        <i class="fas fa-bullhorn"></i>
-        Надзвичайні події
-    </h3>
-    <br>
-    <h3 class="card-title mt-3">
-        <i class="fas fa-city"></i>
-        ${region.name} область
-    </h3>
-    `)
+            let that = this;
+            $.ajax({
+                dataType: "json",
+                url: this.geo_url,
+                success: function(data) {
+                    $(data.features).each(function(key, data) {
+                        that.ukraine_geojson.addData(data);
+                        that.ukraine_geojson.bringToBack();
+                    });
+                },
+                error: function() {}
+            });
+        }
 
-    $('#city_name').val(region.id)
-    let alert_cards = '';
-    region.events.forEach(region_event => {
+    }
+
+    add_markers() {
+        Object.values(this.cities).forEach(city => {
+            let marker = L.marker([city.lat, city.lng]).addTo(this.map);
+            this.markers.push(marker);
+        });
+    }
+
+    add_emergencies() {
+        let that = this
+        Object.values(this.emergencies).forEach(function (emergency, emergency_id) {
+            let city = that.cities[emergency.city_id]
+
+            console.log(emergency)
+            console.log(city)
+
+
+            let circle = L.circle([city.lat, city.lng], {
+                color: 'red',
+                fillColor: '#f03',
+                fillOpacity: 0.5,
+                radius: emergency.radius,
+                emergency_id: emergency_id
+            });
+
+            circle.addTo(that.map);
+            console.log(circle['options'])
+
+            // let pos = this.map.latLngToLayerPoint(circle.getLatLng()).round();
+            // circle.zIndexOffset(-1);
+
+            circle.bindPopup(`
+                <b>${emergency.title}</b><br>
+                <p>${emergency.description}</p>
+            `);
+
+            circle.on('click', function (e) {
+                let key = Object.keys(that.emergencies)[e.target.options.emergency_id]; //fetched the key at second index
+                that.display_city_events(that.emergencies[key])
+            })
+
+            that.circles.push(circle);
+        })
+    }
+
+    display_city_events(emergency) {
+        let city = this.cities[emergency.city_id]
+
+        let area_events = $('#area_events');
+        area_events.html('');
+
+        $('#area_events_header').html(`
+        <h3 class="card-title">
+            <i class="fas fa-bullhorn"></i>
+            Надзвичайні події
+        </h3>
+        <br>
+        <h3 class="card-title mt-3">
+            <i class="fas fa-city"></i>
+            ${city.name}
+        </h3>
+        `)
+
+        $('#city_name').val(city.id)
+        let alert_cards = '';
         alert_cards += `
-        <div class="callout callout-danger">
-            <h5>${region_event.title}</h5>
-            <p>${region_event.description}</p>
-            <a type="button" href="delete_event/${region_event.id}" class="btn btn-block btn-danger">Видалити</a>
-        </div>
-        `
-    });
-    area_events.html(alert_cards)
+            <div class="callout callout-danger">
+                <h4>${emergency.title}</h4>
+                <div class="row">
+                    <div class="col-6">
+                        <h5>Радіус впливу:</h5>
+                        <p>${emergency.radius}</p>
+                    </div>
+                    <div class="col-6">
+                        <h5>Тип події</h5>
+                        <p>${this.emergency_types[emergency.emergency_type].name}</p>
+                    </div>
+                </div>
+                <div class="mt-2 mb-2">
+                    <h5>Опис:</h5>
+                    <p>${emergency.description}</p>
+                </div>
+                
+                <a type="button" href="delete_event/${emergency.id}" class="btn btn-block btn-danger">Видалити</a>
+            </div>
+            `
+        // region.events.forEach(region_event => {
+        //     alert_cards += `
+        //     <div class="callout callout-danger">
+        //         <h5>${region_event.title}</h5>
+        //         <p>${region_event.description}</p>
+        //         <a type="button" href="delete_event/${region_event.id}" class="btn btn-block btn-danger">Видалити</a>
+        //     </div>
+        //     `
+        // });
+        area_events.html(alert_cards)
+    }
+
 }
 
-$(function () {
-    $(".mapcontainer").mapael({
-        map: {
-            name: "ukraine",
-            // Enable zoom on the map,
-            zoom: {
-                enabled: true,
-                maxLevel: 10
-            },
-            // Set default plots and areas style,
-            defaultPlot: {
-                attrs: {
-                    fill: "#004a9b",
-                    opacity: 0.6
-                },
-                attrsHover: {
-                    opacity: 1
-                },
-                text: {
-                    attrs: {
-                        fill: "#505444"
-                    },
-                    attrsHover: {
-                        fill: "#000"
-                    }
-                },
-            },
-            defaultArea: {
-                attrsHover: {
-                    fill: "#a4e100"
-                },
-                text: {
-                    attrs: {
-                        fill: "#505444"
-                    },
-                    attrsHover: {
-                        fill: "#000"
-                    }
-                },
-                eventHandlers: {
-                    click: function (e, id, mapElem, textElem) {
-                        let region = regions.find(x => x.id === id)
 
-                        select_area(id, mapElem, region)      ;
-                        display_area_events(region);
-                    }
-                }
-            }
-        },
-
-        // Customize some areas of the map
-        areas: prepare_areas(regions),
-    });
-})

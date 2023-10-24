@@ -19,5 +19,5 @@ class UA(db.Model):
         return self.query.all()
 
     @classmethod
-    def get_by_id(self):
+    def get_by_id(self, id):
         return self.query.filter_by(id=id).first()

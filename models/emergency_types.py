@@ -10,6 +10,9 @@ class Emergency_types(db.Model):
         self.possible_effects = possible_effects
 
     @classmethod
+    def get(self):
+        return self.query.all()
+    @classmethod
     def get_by_id(self, id):
         return self.query.filter_by(id=id).first()
 

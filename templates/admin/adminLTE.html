@@ -77,17 +77,17 @@
                                                 <div class="form-group">
                                                     <label>Класифікація події</label>
                                                     <select name="emergency_type" id="emergency_type" class="select2" multiple="multiple" data-placeholder="Оберіть тип події" style="width: 100%;">
-                                                        <option value="1">велика</option>
-                                                        <option value="2">маленька</option>
+                                                        {% for emergency_type in emergency_types %}
+                                                            <option value="{{ emergency_type.id }}">{{ emergency_type.name }}</option>
+                                                        {% endfor %}
                                                     </select>
                                                 </div>
                                             </div>
                                         </div>
 
                                         <div class="form-group">
-                                            <label for="exampleInputEmail1">Радіус впливу</label>
-                                            <input type="text" class="form-control" name="radius"
-                                                   placeholder="Заголовок">
+                                            <label for="radius">Радіус впливу</label>
+                                            <input type="text" class="form-control" name="radius" placeholder="">
                                         </div>
 
                                         <div class="form-group">
@@ -111,7 +111,7 @@
                     let ua_cities = {
                         {% for city in ua_cities %}
                             '{{ city.id }}': {
-                            'name': '{{ city.city }}',
+                            'name': '{{ city.ua_name }}',
                             'lat': {{ city.lat }},
                             'lng': {{ city.lng }},
                         },
@@ -128,29 +128,16 @@
                                 'city_id': '{{ emergency.city_id }}',
                             },
                         {% endfor %}
-                        '1': {
-                            'title': 'a',
-                            'description': 'test 1',
-                            'radius': '50000',
-                            'impact': 'a',
-                            'emergency_type': '1',
-                            'city_id': '1',
-                        },
-                        '2': {
-                            'title': 'test 2',
-                            'description': 'a',
-                            'radius': '50000',
-                            'impact': 'a',
-                            'emergency_type': '1',
-                            'city_id': '2',
-                        }
                     };
 
                     emergency_types = {
-                        '1': {
-                            'name': 'велике забруднення'
-                        }
-                    }
+                        {% for emergency_type in emergency_types %}
+                            '{{ emergency_type.id }}': {
+                                'name': '{{ emergency_type.name }}',
+                                'possible_effects': '{{ emergency_type.possible_effects }}',
+                            },
+                        {% endfor %}
+                    };
 
                     $(function () {
                         $('.select2').select2()

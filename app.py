@@ -23,6 +23,8 @@ from models.admins import Admins
 from models.events import Events
 from models.auth_model import Auth
 from models.ua import UA
+from models.emergencies import Emergencies
+from models.emergency_types import Emergency_types
 
 from controllers.map_controller import get_events
 
@@ -42,7 +44,9 @@ def admin():
         'admin/adminLTE.html',
         isAdmin=session['is_admin'],
         cities=cities,
-        ua_cities=UA.get()
+        ua_cities=UA.get(),
+        emergencies=Emergencies.get(),
+        emergency_types=Emergency_types.get()
     )
 
 @app.route('/admin', methods=['POST', 'GET'])
@@ -73,36 +77,38 @@ def add_event():
     if not session['is_admin']:
         return redirect('/')
 
-    city_name = request.form['city_name']
-    city = Regions.get_by_name(city_name)
+    city_id = request.form['city']
+    # app.logger.warning(city_id)
+    city = UA.get_by_id(city_id)
 
-    event = Events(
+    emergency = Emergencies(
+        city_id=city.id,
         title=request.form['title'],
         description=request.form['description'],
-        city_id=city.id,
+        radius=request.form['radius'],
+        emergency_type=request.form['emergency_type']
     )
 
-    event.created_on = datetime.now()
+    emergency.created_on = datetime.now()
 
-    db.session.add(event)
+    db.session.add(emergency)
     db.session.commit()
 
 
     return redirect('/')
 
 
-@app.route('/delete_event/<int:event_id>')
-def delete_event(event_id):
+@app.route('/delete_event/<int:emergency_id>')
+def delete_event(emergency_id):
     check_session()
 
     error = ''
     if not session['is_admin']:
         return redirect('/')
 
-
-    event = Events().get_by_id(event_id)
-    if event:
-        db.session.delete(event)
+    emergency = Emergencies.get_by_id(emergency_id)
+    if emergency:
+        db.session.delete(emergency)
         db.session.commit()
     else:
         error = 'Event was not found'

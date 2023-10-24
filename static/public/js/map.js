@@ -96,14 +96,16 @@ class Alert_map {
 
             circle.on('click', function (e) {
                 let key = Object.keys(that.emergencies)[e.target.options.emergency_id]; //fetched the key at second index
-                that.display_city_events(that.emergencies[key])
+                that.display_city_events(that.emergencies[key], key)
             })
 
             that.circles.push(circle);
         })
     }
 
-    display_city_events(emergency) {
+    display_city_events(emergency, emergency_id) {
+        console.log(this.emergency_types)
+        console.log(emergency.emergency_type)
         let city = this.cities[emergency.city_id]
 
         let area_events = $('#area_events');
@@ -121,7 +123,7 @@ class Alert_map {
         </h3>
         `)
 
-        $('#city_name').val(city.id)
+        $('#city_name').val(city.name)
         let alert_cards = '';
         alert_cards += `
             <div class="callout callout-danger">
@@ -141,7 +143,7 @@ class Alert_map {
                     <p>${emergency.description}</p>
                 </div>
                 
-                <a type="button" href="delete_event/${emergency.id}" class="btn btn-block btn-danger">Видалити</a>
+                <a type="button" href="delete_event/${emergency_id}" class="btn btn-block btn-danger">Видалити</a>
             </div>
             `
         // region.events.forEach(region_event => {

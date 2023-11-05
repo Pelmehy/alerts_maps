@@ -15,9 +15,13 @@ class UA(db.Model):
     population_proper = db.Column(db.Integer, nullable=True)
 
     @classmethod
-    def get(self):
-        return self.query.all()
+    def get(cls):
+        return cls.query.all()
 
     @classmethod
-    def get_by_id(self, id):
-        return self.query.filter_by(id=id).first()
+    def get_by_id(cls, id: int):
+        return cls.query.filter_by(id=id).first()
+
+    @classmethod
+    def get_by_name(cls, name: str):
+        return cls.query.filter_by(city=name).first()

@@ -18,6 +18,31 @@ class Alert_map {
     markers = [];
     circles = [];
 
+    Esri_WorldImagery = L.tileLayer('http://server.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer/tile/{z}/{y}/{x}', {
+        attribution: 'Tiles &copy; Esri &mdash; Source: Esri, i-cubed, USDA, USGS, ' +
+        'AEX, GeoEye, Getmapping, Aerogrid, IGN, IGP, UPR-EGP, and the GIS User Community'
+    });
+
+    Esri_DarkGreyCanvas = L.tileLayer(
+        "http://{s}.sm.mapstack.stamen.com/" +
+        "(toner-lite,$fff[difference],$fff[@23],$fff[hsl-saturation@20])/" +
+        "{z}/{x}/{y}.png",
+        {
+            attribution: 'Tiles &copy; Esri &mdash; Esri, DeLorme, NAVTEQ, TomTom, Intermap, iPC, USGS, FAO, ' +
+            'NPS, NRCAN, GeoBase, Kadaster NL, Ordnance Survey, Esri Japan, METI, Esri China (Hong Kong), and the GIS User Community'
+        }
+    );
+
+    openstreetmap = L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+            attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
+        });
+
+    baseLayers = {
+        "Satellite": this.Esri_WorldImagery,
+        "Grey Canvas": this.Esri_DarkGreyCanvas,
+        "Open Street Map": this.openstreetmap
+    };
+
     constructor(
         cities,
         emergencies,
@@ -50,16 +75,40 @@ class Alert_map {
             $.ajax({
                 dataType: "json",
                 url: this.geo_url,
-                success: function(data) {
-                    $(data.features).each(function(key, data) {
+                success: function (data) {
+                    $(data.features).each(function (key, data) {
                         that.ukraine_geojson.addData(data);
                         that.ukraine_geojson.bringToBack();
                     });
                 },
-                error: function() {}
+                error: function () {
+                }
             });
         }
 
+        let layerControl = L.control.layers(this.baseLayers);
+        layerControl.addTo(this.map);
+
+        WindJSLeaflet.init({
+            localMode: false,
+            map: this.map,
+            layerControl: layerControl,
+            useNearest: false,
+            timeISO: null,
+            nearestDaysLimit: 7,
+            displayValues: true,
+            displayOptions: {
+                displayPosition: 'bottomleft',
+                displayEmptyString: 'No wind data'
+            },
+            overlayName: 'wind',
+
+            // https://github.com/danwild/wind-js-server
+            pingUrl: 'http://localhost:7000/alive',
+            latestUrl: 'http://localhost:7000/latest',
+            nearestUrl: 'http://localhost:7000/nearest',
+            errorCallback: this.handleError
+        });
     }
 
     add_markers() {
@@ -163,6 +212,10 @@ class Alert_map {
         area_events.html(alert_cards)
     }
 
+    handleError = function(err){
+        console.log('handleError...');
+        console.log(err);
+    };
 }
 
 

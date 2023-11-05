@@ -18,6 +18,7 @@ db = SQLAlchemy(app)
 migrate = Migrate(app, db)
 bcrypt = Bcrypt(app)
 
+# MODELS
 from models.regions import Regions
 from models.admins import Admins
 from models.events import Events
@@ -26,7 +27,9 @@ from models.ua import UA
 from models.emergencies import Emergencies
 from models.emergency_types import Emergency_types
 
+# CONTROLLERS
 from controllers.map_controller import get_events
+from controllers.meteo_controller import Meteo_controller
 
 if __name__ == '__main__':
     # db.create_all()
@@ -114,6 +117,11 @@ def delete_event(emergency_id):
         error = 'Event was not found'
 
     return redirect('/')
+
+
+@app.route('/get_weather/<string:city>')
+def get_weather(city):
+    return Meteo_controller.get_by_city(city)
 
 
 def check_session():

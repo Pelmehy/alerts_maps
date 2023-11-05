@@ -18,28 +18,22 @@ class Alert_map {
     markers = [];
     circles = [];
 
-    Esri_WorldImagery = L.tileLayer('http://server.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer/tile/{z}/{y}/{x}', {
+    real_world_layer = L.tileLayer('http://server.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer/tile/{z}/{y}/{x}', {
         attribution: 'Tiles &copy; Esri &mdash; Source: Esri, i-cubed, USDA, USGS, ' +
         'AEX, GeoEye, Getmapping, Aerogrid, IGN, IGP, UPR-EGP, and the GIS User Community'
     });
 
-    Esri_DarkGreyCanvas = L.tileLayer(
-        "http://{s}.sm.mapstack.stamen.com/" +
-        "(toner-lite,$fff[difference],$fff[@23],$fff[hsl-saturation@20])/" +
-        "{z}/{x}/{y}.png",
-        {
-            attribution: 'Tiles &copy; Esri &mdash; Esri, DeLorme, NAVTEQ, TomTom, Intermap, iPC, USGS, FAO, ' +
-            'NPS, NRCAN, GeoBase, Kadaster NL, Ordnance Survey, Esri Japan, METI, Esri China (Hong Kong), and the GIS User Community'
-        }
-    );
+    white_layer = L.tileLayer('https://{s}.basemaps.cartocdn.com/light_nolabels/{z}/{x}/{y}.png', {
+        attribution: '©OpenStreetMap, ©CartoDB'
+    });
 
     openstreetmap = L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
             attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
         });
 
     baseLayers = {
-        "Satellite": this.Esri_WorldImagery,
-        "Grey Canvas": this.Esri_DarkGreyCanvas,
+        "Real Map": this.real_world_layer,
+        "White Map": this.white_layer,
         "Open Street Map": this.openstreetmap
     };
 

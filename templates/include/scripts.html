@@ -27,10 +27,7 @@
 {# ChartJS #}
 <script src="{{ url_for('static', filename="plugins/chart.js/Chart.min.js") }}"></script>
 
-{# map scripts#}
-<script src="https://unpkg.com/leaflet@1.9.3/dist/leaflet.js"
-     integrity="sha256-WBkoXOwTeyKclOHuWtc+i2uENFpDZ9YPdf5Hf+D7ewM="
-     crossorigin=""></script>
+<script src="{{ url_for('static', filename="dist/js/leaflet/leaflet.js") }}"></script>
 <script src="{{ url_for('static', filename='public/js/map.js') }}"></script>
 
 {# Socket IO script#}

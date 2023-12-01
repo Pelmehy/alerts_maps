@@ -10,6 +10,8 @@ class Alert_map {
     osm;
     ukraine_geojson;
 
+    wind_controller;
+
     isAdmin = false;
     cities = {};
     emergencies = {};

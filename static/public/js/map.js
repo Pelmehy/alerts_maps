@@ -52,6 +52,7 @@ class Alert_map {
     }
 
     init() {
+        let that = this;
         this.map = L.map('freeMap').setView(
             this.lat_lng,
             this.z
@@ -83,7 +84,7 @@ class Alert_map {
         let layerControl = L.control.layers(this.baseLayers);
         layerControl.addTo(this.map);
 
-        WindJSLeaflet.init({
+        this.wind_controller = WindJSLeaflet.init({
             localMode: false,
             map: this.map,
             layerControl: layerControl,
@@ -117,10 +118,6 @@ class Alert_map {
         Object.values(this.emergencies).forEach(function (emergency, emergency_id) {
             let city = that.cities[emergency.city_id]
 
-            console.log(emergency)
-            console.log(city)
-
-
             let circle = L.circle([city.lat, city.lng], {
                 color: 'red',
                 fillColor: '#f03',
@@ -130,10 +127,6 @@ class Alert_map {
             });
 
             circle.addTo(that.map);
-            console.log(circle['options'])
-
-            // let pos = this.map.latLngToLayerPoint(circle.getLatLng()).round();
-            // circle.zIndexOffset(-1);
 
             circle.bindPopup(`
                 <b>${emergency.title}</b><br>
@@ -150,8 +143,6 @@ class Alert_map {
     }
 
     display_city_events(emergency, emergency_id) {
-        console.log(this.emergency_types)
-        console.log(emergency.emergency_type)
         let city = this.cities[emergency.city_id]
 
         let area_events = $('#area_events');
@@ -210,6 +201,47 @@ class Alert_map {
         console.log('handleError...');
         console.log(err);
     };
+
+    vector_to_speed(uMs, vMs) {
+		let wind_abs = Math.sqrt(Math.pow(uMs, 2) + Math.pow(vMs, 2));
+		return wind_abs;
+	}
+    
+    vector_to_degrees(uMs, vMs) {
+		let wind_abs = Math.sqrt(Math.pow(uMs, 2) + Math.pow(vMs, 2));
+		let wind_dir_trig_to = Math.atan2(uMs / wind_abs, vMs / wind_abs);
+		let wind_dir_trig_to_degrees = wind_dir_trig_to * 180 / Math.PI;
+		let wind_dir_trig_from_degrees = wind_dir_trig_to_degrees + 180;
+
+		return wind_dir_trig_from_degrees.toFixed(3);
+	}
+
+    get_wind(lat, lng) {
+		let gridValue = this.wind_controller._windy.interpolatePoint(lng, lat);
+		let js_out = {
+            success: true,
+            lat: lat,
+            lng: lng,
+            wind_speed: 0,
+            wind_degrees: 0,
+            temperature: 0
+        };
+
+        if (gridValue && !isNaN(gridValue[0]) && !isNaN(gridValue[1]) && gridValue[2]) {
+
+			// vMs comes out upside-down..
+			let vMs = gridValue[1];
+			vMs = vMs > 0 ? vMs - vMs * 2 : Math.abs(vMs);
+
+            js_out.wind_speed = this.vector_to_speed(gridValue[0], vMs).toFixed(1);
+            js_out.wind_degrees = this.vector_to_degrees(gridValue[0], vMs);
+            js_out.temperature = (gridValue[2] - 273.15).toFixed(1)
+		} else {
+			js_out.success = false;
+		}
+        
+        return js_out;
+    }
 }
 
 
